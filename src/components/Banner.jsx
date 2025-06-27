@@ -22,9 +22,8 @@ const Banner = () => {
 
     return (
         <div>
-            <img src="/banner1.jpg" alt="" />
-            <div className="relative w-full h-screen overflow-hidden">
-                {/* Carousel Image */}
+            <img className='md:h-[150px] w-full' src="/banner1.jpg" alt="" />
+            <div className="relative w-full h-[700px] overflow-hidden">
                 <AnimatePresence mode="wait">
                     <motion.img
                         key={images[currentIndex]}
@@ -38,7 +37,6 @@ const Banner = () => {
                     />
                 </AnimatePresence>
 
-                {/* Left Arrow */}
                 <button
                     onClick={prevSlide}
                     className="absolute top-[13%] md:top-[35%] md:left-4 left-2 transform -translate-y-1/2  text-blue-600 text-3xl rounded-full p-3  shadow z-10"
@@ -46,7 +44,6 @@ const Banner = () => {
                     <FaChevronLeft />
                 </button>
 
-                {/* Right Arrow */}
                 <button
                     onClick={nextSlide}
                     className="absolute top-[13%] md:top-[35%] md:right-4 right-2 transform -translate-y-1/2  text-blue-600 text-3xl rounded-full p-3  shadow z-10"
@@ -54,16 +51,16 @@ const Banner = () => {
                     <FaChevronRight />
                 </button>
 
-                {/* Dots Navigator */}
-                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-3 z-10">
+                <div className="absolute bottom-[76%] md:bottom-[2%] left-1/2 transform -translate-x-1/2 flex gap-3 z-10">
                     {images.map((_, idx) => (
                         <button
                             key={idx}
                             onClick={() => setCurrentIndex(idx)}
-                            className={`w-3 h-3 rounded-full ${idx === currentIndex ? 'bg-blue-600' : 'bg-gray-300'} transition`}
+                            className={`md:w-3 w-2 md:h-3 h-2 rounded-full ${idx === currentIndex ? 'bg-blue-600 scale-125' : 'bg-gray-300'} transition`}
                         ></button>
                     ))}
                 </div>
+
             </div>
         </div>
     );
