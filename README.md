@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 💼 Dr.Tech Job Task — Portfolio Clone Project
 
-## Getting Started
+A **pixel-perfect clone** of [mdabdulkaiyum.in](https://mdabdulkaiyum.in), completed as part of the **Dr.Tech Job Task**. Built with **Next.js**, **Tailwind CSS**, and includes custom features such as **dark/light mode**, a **dummy login system**, and a responsive **admin dashboard**.
 
-First, run the development server:
+---
+
+## 🔗 Live Demo & Repo
+
+🚀 **Live Site:** [https://drtech-jobtask.vercel.app](https://drtech-jobtask.vercel.app)
+
+📦 **GitHub Repo:** [https://github.com/KMTonmoy/DrTech-Job-Task](https://github.com/KMTonmoy/DrTech-Job-Task)
+
+---
+
+## 📸 Project Overview
+
+### 🔥 Pixel-Perfect UI Clone
+- Recreated the full layout of [mdabdulkaiyum.in](https://mdabdulkaiyum.in)
+- Sections: Hero, About, Projects, Contact — all responsive and matching original style
+
+### 🌙 Dark/Light Theme
+- Toggle with icon (☀️ / 🌙)
+- Fully theme-aware layout
+- Preference saved in `localStorage` to persist across sessions
+
+### 🔐 Dummy Login
+- Functional login form (no backend)
+- Inputs for Email & Password
+- On click, redirects to Dashboard
+ 
+ 
+## 🧪 How to Run Locally
 
 ```bash
+# Clone this repo
+git clone https://github.com/KMTonmoy/DrTech-Job-Task
+
+# Go into the project directory
+cd dr-tech
+
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
