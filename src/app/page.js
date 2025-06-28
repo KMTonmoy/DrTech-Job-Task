@@ -1,6 +1,8 @@
  import Aboutus from '@/components/Aboutus'
 import Banner from '@/components/Banner'
 import Book from '@/components/Book'
+import BookNow from '@/components/BookNow'
+import Contact from '@/components/Contact'
 import Lifestyle from '@/components/Lifestyle'
 import OurService from '@/components/OurService'
 import Testimonial from '@/components/Testimonial'
@@ -17,6 +19,8 @@ const page = () => {
       <Videos/>
       <Testimonial/>
       <Aboutus/>
+      <BookNow/>
+      <Contact/>
     </div>
   )
 }
