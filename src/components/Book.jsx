@@ -2,10 +2,11 @@
 import React from 'react';
 import { CiBookmark } from "react-icons/ci";
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const Book = () => {
     return (
-        <motion.div 
+        <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -22,15 +23,17 @@ const Book = () => {
                         ঔষধ মুক্ত জীবন সুস্থ জীবন, আর এর জন্য প্রয়োজন স্বাস্থ্যকর লাইফ স্টাইল।
                     </p>
                 </div>
-                
-                <motion.button 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className='bg-blue-600 hover:bg-red-700 text-white text-sm md:text-base font-medium h-12 md:h-[50px] px-4 md:px-6 rounded-xl flex items-center gap-2 transition-colors duration-300 whitespace-nowrap self-start md:self-auto'
-                >
-                    <CiBookmark className='text-xl md:text-2xl' />
-                    Book Appointment
-                </motion.button>
+
+                <Link href={'/appointment'}>
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className='bg-blue-600 hover:bg-red-700 text-white text-sm md:text-base font-medium h-12 md:h-[50px] px-4 md:px-6 rounded-xl flex items-center gap-2 transition-colors duration-300 whitespace-nowrap self-start md:self-auto'
+                    >
+                        <CiBookmark className='text-xl md:text-2xl' />
+                        Book Appointment
+                    </motion.button>
+                </Link>
             </div>
         </motion.div>
     )

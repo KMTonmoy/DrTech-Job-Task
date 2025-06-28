@@ -12,7 +12,7 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const navLinks = [
-    { href: '/হোম', label: 'হোম' },
+    { href: '/', label: 'হোম' },
     { href: '/সেবা', label: 'সেবা' },
     { href: '/রিভিউ', label: 'রিভিউ' },
     { href: '/আমাদের সম্পর্কে', label: 'আমাদের সম্পর্কে' },
