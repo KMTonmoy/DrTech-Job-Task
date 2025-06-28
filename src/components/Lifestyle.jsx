@@ -5,7 +5,7 @@ import { FaPlusSquare } from "react-icons/fa";
 
 const Lifestyle = () => {
     return (
-        <div className="py-12 bg-white">
+        <div className="py-12  ">
             <motion.h1
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}

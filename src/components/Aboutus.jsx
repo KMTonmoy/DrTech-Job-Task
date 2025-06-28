@@ -9,7 +9,7 @@ const Aboutus = () => {
   };
 
   return (
-    <div className="bg-white py-12">
+    <div className="  py-12">
       <div className="max-w-4xl mx-auto px-4">
         {/* Main Title */}
         <motion.h1
@@ -28,15 +28,15 @@ const Aboutus = () => {
           transition={{ duration: 0.7 }}
           className="mb-12 rounded-lg overflow-hidden shadow-lg"
         >
-          <img 
-            src="/aboutbanner.jpg" 
-            alt="Peace Library Diabetes Centre" 
+          <img
+            src="/aboutbanner.jpg"
+            alt="Peace Library Diabetes Centre"
             className="w-full h-auto"
           />
         </motion.div>
 
         {/* Content Container */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}

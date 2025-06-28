@@ -47,9 +47,9 @@ const Videos = () => {
   );
 
   return (
-    <div className="py-12 px-4 bg-gray-50">
+    <div className="py-12 px-4  ">
       <div className="max-w-7xl mx-auto">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -57,14 +57,14 @@ const Videos = () => {
         >
           আমাদের ভিডিও সমূহ
         </motion.h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {videos.map((video, index) => (
             <motion.div
               key={video.id}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ 
+              transition={{
                 duration: 0.5,
                 delay: index * 0.1
               }}
