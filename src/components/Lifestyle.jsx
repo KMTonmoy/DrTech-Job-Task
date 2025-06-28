@@ -1,16 +1,23 @@
 'use client'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaPlusSquare } from "react-icons/fa";
 
 const Lifestyle = () => {
+    const [theme, setTheme] = useState('light');
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
+    }, []);
+
     return (
-        <div className="py-12  ">
+        <div className={`py-12 ${theme === 'dark' ? 'bg-gray-900' : ''}`}>
             <motion.h1
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className='text-[30px] mb-20 text-black font-[600] text-center flex items-center justify-center gap-5'
+                className={`text-[30px] mb-20 ${theme === 'dark' ? 'text-white' : 'text-black'} font-[600] text-center flex items-center justify-center gap-5`}
             >
                 স্বাস্থ্যকর লাইফস্টাইল <motion.span
                     animate={{ scale: [1, 1.1, 1] }}
@@ -45,7 +52,9 @@ const Lifestyle = () => {
                         animate={{
                             opacity: 1,
                             y: 0,
-                            boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
+                            boxShadow: theme === 'dark' 
+                                ? "0 10px 25px -5px rgba(0, 0, 0, 0.3)" 
+                                : "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
                         }}
                         transition={{
                             duration: 0.8,
@@ -54,12 +63,14 @@ const Lifestyle = () => {
                         }}
                         whileHover={{
                             y: -3,
-                            boxShadow: "0 15px 30px -5px rgba(0, 0, 0, 0.15)"
+                            boxShadow: theme === 'dark' 
+                                ? "0 15px 30px -5px rgba(0, 0, 0, 0.4)" 
+                                : "0 15px 30px -5px rgba(0, 0, 0, 0.15)"
                         }}
-                        className="max-w-xl bg-white p-6 rounded-lg border border-gray-100"
+                        className={`max-w-xl p-6 rounded-lg border ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'}`}
                     >
-                        <h1 className='text-[36px] font-[600] text-[#374151] mb-2'>স্বাস্থ্যকর লাইফস্টাইল</h1>
-                        <p className='text-[16px] font-[700] text-black mb-4'>
+                        <h1 className={`text-[36px] font-[600] ${theme === 'dark' ? 'text-gray-100' : 'text-[#374151]'} mb-2`}>স্বাস্থ্যকর লাইফস্টাইল</h1>
+                        <p className={`text-[16px] font-[700] ${theme === 'dark' ? 'text-gray-200' : 'text-black'} mb-4`}>
                             কি আছে আমাদের লাইফ স্টাইলে? কেন ভাল হয়ে যায় লাইফ স্টাইল ও লাইফ টাইম ডিসিস গুলো। (সুস্থতার মূল মন্ত্রে সবচেয়ে গুরুত্বপূর্ণ যে বিষয়টি তা হল খাদ্যাভ্যাস)
                         </p>
 
@@ -74,7 +85,7 @@ const Lifestyle = () => {
                                 <motion.li
                                     key={index}
                                     whileHover={{ x: 5 }}
-                                    className='text-[16px] font-[400] text-gray-700'
+                                    className={`text-[16px] font-[400] ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}
                                 >
                                     {item}
                                 </motion.li>
@@ -94,7 +105,7 @@ const Lifestyle = () => {
                                 <motion.p
                                     key={index}
                                     whileHover={{ scale: 1.01 }}
-                                    className={`text-[16px] ${item.bold ? 'font-[600]' : 'font-[400]'} text-gray-700`}
+                                    className={`text-[16px] ${item.bold ? 'font-[600]' : 'font-[400]'} ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}
                                 >
                                     {item.text}
                                 </motion.p>
@@ -103,9 +114,9 @@ const Lifestyle = () => {
 
                         <motion.p
                             whileHover={{ scale: 1.01 }}
-                            className='mt-4 text-[16px] font-[600] text-gray-700'
+                            className={`mt-4 text-[16px] font-[600] ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}
                         >
-                            “স্বাস্থ্যকর লাইফস্টাইল সুস্থ জীবন” “হয়তো ডিসিপ্লিন নয়তো ডিসিস” আপনার লাইফস্টাইল মডিফিকেশন করতে পরামর্শ নিন লাইফস্টাইল মডিফায়ার <a href="https://www.facebook.com/mdabdulkaiyumpeacelibrary/" className='text-blue-600 hover:underline'>আব্দুল কাইয়ুম পীস লাইব্রেরী</a> এর কাছে।
+                            "স্বাস্থ্যকর লাইফস্টাইল সুস্থ জীবন" "হয়তো ডিসিপ্লিন নয়তো ডিসিস" আপনার লাইফস্টাইল মডিফিকেশন করতে পরামর্শ নিন লাইফস্টাইল মডিফায়ার <a href="https://www.facebook.com/mdabdulkaiyumpeacelibrary/" className='text-blue-500 hover:underline'>আব্দুল কাইয়ুম পীস লাইব্রেরী</a> এর কাছে।
                         </motion.p>
                     </motion.div>
                 </div>

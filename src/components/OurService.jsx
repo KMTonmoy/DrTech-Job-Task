@@ -10,6 +10,7 @@ const OurService = () => {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [theme, setTheme] = useState('light');
 
     useEffect(() => {
         const fetchServices = async () => {
@@ -22,6 +23,9 @@ const OurService = () => {
                 setLoading(false);
             }
         };
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
 
         fetchServices();
     }, []);
@@ -36,19 +40,19 @@ const OurService = () => {
         setSelectedService(null);
     };
 
-    if (loading) return <div className="text-center py-12">Loading services...</div>;
-    if (error) return <div className="text-center py-12 text-red-500">Error loading services: {error}</div>;
+    if (loading) return <div className={`text-center py-12 ${theme === 'dark' ? 'text-gray-300' : ''}`}>Loading services...</div>;
+    if (error) return <div className={`text-center py-12 text-red-500 ${theme === 'dark' ? 'text-red-400' : ''}`}>Error loading services: {error}</div>;
 
     return (
-        <div className="py-12 px-4">
+        <div id='#service' className={` py-12 px-4 ${theme === 'dark' ? 'bg-gray-900' : ''}`}>
             <div className="max-w-7xl mx-auto">
-                <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">আমাদের সেবাসমূহ</h2>
+                <h2 className={`text-3xl font-bold text-center mb-12 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>আমাদের সেবাসমূহ</h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                     {services.map((service) => (
                         <div
                             key={service.id}
-                            className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                            className={`rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
                         >
                             <div className="p-6">
                                 <div className="flex justify-center items-center mb-4">
@@ -58,12 +62,12 @@ const OurService = () => {
                                         alt={service.title}
                                     />
                                 </div>
-                                <h3 className="text-xl font-semibold text-gray-800 mb-2  ">{service.title}</h3>
-                                <p className="text-gray-600 mb-4 ">{service.shortDesc}</p>
-                                <div className="flex ">
+                                <h3 className={`text-xl font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>{service.title}</h3>
+                                <p className={`mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{service.shortDesc}</p>
+                                <div className="flex">
                                     <button
                                         onClick={() => openModal(service)}
-                                        className="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300"
+                                        className={`font-medium transition-colors duration-300 ${theme === 'dark' ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'}`}
                                     >
                                         View Details
                                     </button>
@@ -77,19 +81,19 @@ const OurService = () => {
             {/* Modal */}
             {isModalOpen && selectedService && (
                 <div className="fixed inset-0 bg-[#0000005b] bg-opacity-50 flex items-center justify-center p-4 z-50">
-                    <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                    <div className={`rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
                         <div className="p-6">
                             <div className="flex justify-between items-center mb-4">
-                                <h3 className="text-2xl font-bold text-gray-800">Appointment Details</h3>
+                                <h3 className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Appointment Details</h3>
                                 <button
                                     onClick={closeModal}
-                                    className="text-gray-500 hover:text-gray-700 transition-colors duration-300"
+                                    className={`transition-colors duration-300 ${theme === 'dark' ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'}`}
                                 >
                                     <FiX size={24} />
                                 </button>
                             </div>
 
-                            <hr className="my-4 border-gray-200" />
+                            <hr className={`my-4 ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`} />
 
                             <div className="mb-6">
                                 <div className="flex flex-col md:flex-row items-center mb-6 gap-4">
@@ -98,19 +102,19 @@ const OurService = () => {
                                         className="w-20 h-20 rounded-full object-cover border-2 border-blue-100"
                                         alt={selectedService.title}
                                     />
-                                    <h4 className="text-xl font-semibold text-gray-800 text-center md:text-left">
+                                    <h4 className={`text-xl font-semibold text-center md:text-left ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                                         {selectedService.title}
                                     </h4>
                                 </div>
 
-                                <div className="prose max-w-none text-gray-700">
+                                <div className={`max-w-none ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                                     {selectedService.fullDesc.split('\n').map((paragraph, i) => (
                                         <p key={i} className="mb-4">{paragraph}</p>
                                     ))}
                                 </div>
                             </div>
 
-                            <hr className="my-4 border-gray-200" />
+                            <hr className={`my-4 ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`} />
 
                             <div className="flex flex-col sm:flex-row justify-start gap-4">
                                 <Link href="/appointment" passHref>
@@ -124,7 +128,7 @@ const OurService = () => {
                                 </Link>
                                 <button
                                     onClick={closeModal}
-                                    className="border border-gray-300 hover:bg-gray-100 text-gray-700 px-6 py-3 rounded-lg flex items-center gap-2 transition-colors duration-300"
+                                    className={`border px-6 py-3 rounded-lg flex items-center gap-2 transition-colors duration-300 ${theme === 'dark' ? 'border-gray-600 hover:bg-gray-700 text-gray-300' : 'border-gray-300 hover:bg-gray-100 text-gray-700'}`}
                                 >
                                     Cancel
                                 </button>
