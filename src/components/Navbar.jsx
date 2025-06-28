@@ -51,9 +51,9 @@ const Navbar = () => {
   ];
 
   const actionButtons = [
-    { href: '/FAQ', label: 'বুক অ্যাপয়েন্টমেন্ট' },
-    { href: '/FAQ', label: 'BMI Calculator' },
-    { href: '/FAQ', label: 'Download app' },
+    { href: '/appointment', label: 'বুক অ্যাপয়েন্টমেন্ট' },
+    { href: '/bmi', label: 'BMI Calculator' },
+    { href: '/download', label: 'Download app' },
   ];
 
   const themeToggle = (
@@ -79,7 +79,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className={`p-3 flex flex-wrap justify-between items-center border-b-2 ${theme === 'dark' ? 'border-gray-700 bg-gray-900 text-white' : 'border-[#E5E7EB] bg-white text-black'} relative`}>
+    <div className={`p-3 sticky top-0 z-50 flex flex-wrap justify-between items-center border-b-2 ${theme === 'dark' ? 'border-gray-700 bg-gray-900 text-white' : 'border-[#E5E7EB] bg-white text-black'} relative`}>
       <div className="w-full md:w-auto flex justify-between items-center">
         <img className="w-[150px] md:w-[220px]" src="/main_logo_fav.png" alt="Logo" />
         <div className="lg:hidden text-3xl cursor-pointer md:hidden" onClick={() => setIsOpen(!isOpen)}>
@@ -115,7 +115,7 @@ const Navbar = () => {
 
         {themeToggle}
 
-        <Link href="/FAQ">
+        <Link href="/login">
           <button className="bg-[#0009FF] dark:bg-blue-600 rounded-md text-white px-4 py-1 hover:bg-blue-700 dark:hover:bg-blue-700 transition-colors">
             লগিন করুন
           </button>
@@ -176,7 +176,7 @@ const Navbar = () => {
                 {themeToggle}
               </div>
 
-              <Link href="/FAQ" onClick={() => setIsOpen(false)}>
+              <Link href="/login" onClick={() => setIsOpen(false)}>
                 <button className="bg-[#0009FF] dark:bg-blue-600 rounded-md text-white px-4 py-2 w-full hover:bg-blue-700 dark:hover:bg-blue-700 transition-colors">
                   লগিন করুন
                 </button>
