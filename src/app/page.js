@@ -4,6 +4,7 @@ import Book from '@/components/Book'
 import BookNow from '@/components/BookNow'
 import Contact from '@/components/Contact'
 import Lifestyle from '@/components/Lifestyle'
+import Location from '@/components/Location'
 import OurService from '@/components/OurService'
 import Testimonial from '@/components/Testimonial'
 import Videos from '@/components/Videos'
@@ -21,6 +22,7 @@ const page = () => {
       <Aboutus/>
       <BookNow/>
       <Contact/>
+      <Location/>
     </div>
   )
 }
