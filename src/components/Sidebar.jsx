@@ -10,11 +10,17 @@ import {
   FaListAlt,
   FaEnvelope,
   FaUserCog,
+  FaBars,
+  FaTimes,
 } from 'react-icons/fa';
 import { FiSun, FiMoon } from 'react-icons/fi';
+import { usePathname } from 'next/navigation';
 
 const Sidebar = () => {
+  const pathname = usePathname();
   const [theme, setTheme] = useState('light');
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('theme') || 'light';
@@ -30,41 +36,91 @@ const Sidebar = () => {
   };
 
   const navItems = [
-    { icon: <FaHome className="text-blue-500" />, label: 'Home' },
-    { icon: <FaUserInjured className="text-green-500" />, label: 'Total Patients' },
-    { icon: <FaHistory className="text-purple-500" />, label: 'Diagnostic History' },
-    { icon: <FaClipboardList className="text-yellow-500" />, label: 'Pending Appointments' },
-    { icon: <FaCapsules className="text-pink-500" />, label: 'Total Supplement' },
-    { icon: <FaListAlt className="text-cyan-500" />, label: 'Patient Supplement List' },
-    { icon: <FaEnvelope className="text-red-500" />, label: 'Admin Message' },
-    { icon: <FaUserCog className="text-gray-700 dark:text-gray-300" />, label: 'Profile Settings' },
+    { icon: <FaHome />, label: 'Home', path: '/dashboard' },
+    { icon: <FaUserInjured />, label: 'Total Patients', path: '/dashboard/total-patients' },
+    { icon: <FaHistory />, label: 'Diagnostic History', path: '/dashboard/diagnostic-history' },
+    { icon: <FaClipboardList />, label: 'Pending Appointments', path: '/dashboard/pending-appointments' },
+    { icon: <FaCapsules />, label: 'Total Supplement', path: '/dashboard/total-supplement' },
+    { icon: <FaListAlt />, label: 'Patient Supplement List', path: '/dashboard/patient-supplement-list' },
+    { icon: <FaEnvelope />, label: 'Admin Message', path: '/dashboard/admin-message' },
+    { icon: <FaUserCog />, label: 'Profile Settings', path: '/dashboard/profile-settings' },
   ];
 
-  return (
-    <div className={`min-h-screen w-72 p-4 shadow-lg border-r ${theme === 'dark' ? 'bg-black text-white border-gray-700' : 'bg-white text-black border-gray-200'} flex flex-col justify-between`}>
-      <div>
-        <h2 className="text-2xl font-bold mb-6 text-center">Dashboard</h2>
-        <ul className="space-y-4">
-          {navItems.map((item, i) => (
-            <li
-              key={i}
-              className={`flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer`}
-            >
-              {item.icon}
-              <span>{item.label}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+  const isActive = (path) => {
+    if (path === '/dashboard') {
+      return pathname === path;
+    }
+    return pathname.startsWith(path);
+  };
 
+  return (
+    <>
+      {/* Mobile menu button */}
       <button
-        onClick={toggleTheme}
-        className="flex items-center gap-2 mt-6 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+        className={`md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'} shadow-md`}
+        onClick={() => setMobileOpen(!mobileOpen)}
       >
-        {theme === 'light' ? <FiMoon className="text-blue-600" /> : <FiSun className="text-yellow-400" />}
-        <span>{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
+        {mobileOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
       </button>
-    </div>
+
+      {/* Sidebar */}
+      <div
+        className={`fixed md:relative min-h-screen ${collapsed ? 'w-20' : 'w-72'} p-4 shadow-lg border-r ${theme === 'dark' ? 'bg-black text-white border-gray-700' : 'bg-white text-black border-gray-200'} flex flex-col justify-between transition-all duration-300 z-40 ${mobileOpen ? 'left-0' : '-left-full md:left-0'}`}
+      >
+        <div>
+          {!collapsed ? (
+            <h2 className="text-2xl font-bold mb-6 text-center">Dashboard</h2>
+          ) : (
+            <div className="h-12 flex items-center justify-center mb-6">
+              <span className="text-2xl font-bold">D</span>
+            </div>
+          )}
+          <ul className="space-y-2">
+            {navItems.map((item, i) => (
+              <li
+                key={i}
+                className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors ${isActive(item.path) ? 'bg-pink-500 text-white' : theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                <a href={item.path} className="flex items-center gap-3 w-full">
+                  <span className={`text-xl ${isActive(item.path) ? 'text-white' : theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                    {item.icon}
+                  </span>
+                  {!collapsed && <span>{item.label}</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="space-y-4">
+          <button
+            onClick={toggleTheme}
+            className={`flex items-center gap-2 w-full p-3 rounded-lg ${theme === 'dark' ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-100 hover:bg-gray-200'} transition`}
+          >
+            {theme === 'light' ? (
+              <FiMoon className="text-blue-600" />
+            ) : (
+              <FiSun className="text-yellow-400" />
+            )}
+            {!collapsed && (
+              <span>{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
+            )}
+          </button>
+
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className={`hidden md:flex items-center justify-center w-full p-3 rounded-lg ${theme === 'dark' ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-100 hover:bg-gray-200'} transition`}
+          >
+            {collapsed ? (
+              <FaBars className="text-gray-500" />
+            ) : (
+              <FaTimes className="text-gray-500" />
+            )}
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 
