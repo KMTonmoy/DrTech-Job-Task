@@ -1,5 +1,6 @@
 'use client';
 
+import Stats from '@/components/Stats';
 import { Book, Users, Calendar, Activity, Pill, FileText, Shield, History } from 'lucide-react';
 import React, { useState, useRef, useEffect } from 'react';
 
@@ -93,45 +94,47 @@ const Dashboard = () => {
   };
 
   return (
-    <div className='w-full p-4 md:p-10 min-h-screen bg-gray-50'>
-      {/* Header */}
-      <div className='w-full p-5 rounded-xl mb-6 bg-blue-500 text-white shadow-lg'>
-        <h1 className='text-2xl md:text-3xl font-bold'>One Click Access</h1>
-      </div>
+    <div className='w-full'>
+      <div className='w-full p-4 md:p-10  bg-gray-50'>
+        {/* Header */}
+        <div className='w-full p-5 rounded-xl mb-6 bg-blue-500 text-white shadow-lg'>
+          <h1 className='text-2xl md:text-3xl font-bold'>One Click Access</h1>
+        </div>
 
-      {/* Stats Grid with Drag and Drop */}
-      <div
-        ref={containerRef}
-        className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'
-        onDragOver={handleDragOver}
-      >
-        {items.map((item) => (
-          <div
-            key={item.id}
-            draggable
-            onDragStart={(e) => handleDragStart(e, item.id)}
-            onDrop={(e) => handleDrop(e, item.id)}
-            onTouchStart={(e) => handleTouchStart(e, item.id)}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            className={`flex justify-center gap-5 bg-white shadow-2xl items-center rounded-xl p-5 hover:shadow-xl transition-all ${(draggedItem === item.id || touchDraggedItem === item.id) ? 'opacity-50' : ''
-              }`}
-            style={{
-              transform: touchDraggedItem === item.id && touchCurrentPos ?
-                `translate(${touchCurrentPos.x - touchStartPos.x}px, ${touchCurrentPos.y - touchStartPos.y}px)` :
-                'none'
-            }}
-          >
-            <button className={`bg-[${getColor(item.color, 'bg')}] text-${item.color}-600 p-2 rounded-full`}>
-              {React.cloneElement(item.icon, { className: `text-${item.color}-600` })}
-            </button>
-            <div className="flex flex-col items-center">
-              <p className={`text-${item.color}-600 font-bold`}>{item.value}</p>
-              <p className="text-gray-600 text-sm">{item.label}</p>
+        <div
+          ref={containerRef}
+          className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'
+          onDragOver={handleDragOver}
+        >
+          {items.map((item) => (
+            <div
+              key={item.id}
+              draggable
+              onDragStart={(e) => handleDragStart(e, item.id)}
+              onDrop={(e) => handleDrop(e, item.id)}
+              onTouchStart={(e) => handleTouchStart(e, item.id)}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              className={`flex justify-center gap-5 bg-white shadow-2xl items-center rounded-xl p-5 hover:shadow-xl transition-all ${(draggedItem === item.id || touchDraggedItem === item.id) ? 'opacity-50' : ''
+                }`}
+              style={{
+                transform: touchDraggedItem === item.id && touchCurrentPos ?
+                  `translate(${touchCurrentPos.x - touchStartPos.x}px, ${touchCurrentPos.y - touchStartPos.y}px)` :
+                  'none'
+              }}
+            >
+              <button className={`bg-[${getColor(item.color, 'bg')}] text-${item.color}-600 p-2 rounded-full`}>
+                {React.cloneElement(item.icon, { className: `text-${item.color}-600` })}
+              </button>
+              <div className="flex flex-col items-center">
+                <p className={`text-${item.color}-600 font-bold`}>{item.value}</p>
+                <p className="text-gray-600 text-sm">{item.label}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
+      <Stats />
     </div>
   );
 };
