@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import Navbar from '@/components/Navbar';
 
 const faqData = [
   {
@@ -60,6 +61,8 @@ const AccordionWithVideos = () => {
   }, []);
 
   return (
+  <>
+  <Navbar/>
     <div className={`min-h-screen py-10 px-4 ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-800'}`}>
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-center">জরুরী প্রশ্নের উত্তর</h1>
@@ -132,6 +135,7 @@ const AccordionWithVideos = () => {
         </div>
       </div>
     </div>
+  </>
   );
 };
 
