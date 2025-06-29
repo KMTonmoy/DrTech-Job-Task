@@ -7,16 +7,24 @@ import { Bell, AppWindow } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation';
 
+const dummyNotifications = [
+  { id: 1, title: 'New appointment booked', time: '2 mins ago' },
+  { id: 2, title: 'System update completed', time: '1 hour ago' },
+  { id: 3, title: 'New message from user John', time: '3 hours ago' },
+];
+
 const DashboardNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState('light');
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [glucose, setGlucose] = useState('');
   const [insulin, setInsulin] = useState('');
   const [result, setResult] = useState(null);
 
   const profileRef = useRef(null);
+  const notificationRef = useRef(null);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -28,8 +36,12 @@ const DashboardNav = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (profileRef.current && !profileRef.current.contains(event.target)) {
+      if (
+        profileRef.current && !profileRef.current.contains(event.target) &&
+        notificationRef.current && !notificationRef.current.contains(event.target)
+      ) {
         setShowProfileDropdown(false);
+        setShowNotifications(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -74,9 +86,41 @@ const DashboardNav = () => {
           <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">Create Appointment</button>
         </Link>
 
-        <button className="text-xl hover:text-blue-400">
-          <Bell />
-        </button>
+        {/* Notification Button */}
+        <div className="relative" ref={notificationRef}>
+          <button
+            onClick={() => setShowNotifications(!showNotifications)}
+            className="text-xl hover:text-blue-400 relative"
+            aria-label="Notifications"
+          >
+            <Bell />
+            {/* Badge */}
+            <span className="absolute top-0 right-0 inline-block w-2 h-2 bg-red-500 rounded-full" />
+          </button>
+
+          <AnimatePresence>
+            {showNotifications && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute right-0 mt-2 w-72 max-h-64 overflow-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg z-50"
+              >
+                <div className="p-3 font-semibold border-b border-gray-200 dark:border-gray-700">Notifications</div>
+                {dummyNotifications.length === 0 ? (
+                  <p className="p-3 text-center text-gray-500 dark:text-gray-400">No notifications</p>
+                ) : (
+                  dummyNotifications.map((notif) => (
+                    <div key={notif.id} className="p-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer border-b last:border-b-0">
+                      <p className="text-sm font-medium">{notif.title}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{notif.time}</p>
+                    </div>
+                  ))
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         <button className="text-xl hover:text-blue-400">
           <AppWindow />
@@ -167,6 +211,7 @@ const DashboardNav = () => {
                     value={glucose}
                     onChange={(e) => setGlucose(e.target.value)}
                     className="w-full border px-3 py-2 rounded dark:bg-gray-800 dark:border-gray-600"
+                    placeholder="e.g. 90"
                   />
                 </div>
                 <div>
@@ -176,6 +221,7 @@ const DashboardNav = () => {
                     value={insulin}
                     onChange={(e) => setInsulin(e.target.value)}
                     className="w-full border px-3 py-2 rounded dark:bg-gray-800 dark:border-gray-600"
+                    placeholder="e.g. 10"
                   />
                 </div>
                 <button
